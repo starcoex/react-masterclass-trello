@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { ThemeProvider } from 'styled-components';
+import { recoilState } from './recoil/atoms';
+import GlobalStyle from './styles/GlobalStyle';
+import { darkTheme, ligthTheme } from './theme';
+
+
 
 function App() {
+  const isDark = useRecoilValue(recoilState)
+  console.log(isDark)
+  useEffect(() => {
+    localStorage.setItem("isDark", JSON.stringify(isDark))
+  }, [isDark])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={isDark ? ligthTheme : darkTheme}>
+      <GlobalStyle />
+    </ThemeProvider>
   );
 }
 
