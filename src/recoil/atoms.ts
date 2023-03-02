@@ -1,9 +1,8 @@
 import { atom, selector } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-interface IToDo {
-  text: string;
-  id: string;
+interface IToDoState {
+  [key: string]: string[];
 }
 
 const { persistAtom } = recoilPersist({
@@ -11,16 +10,18 @@ const { persistAtom } = recoilPersist({
   storage: localStorage,
 });
 // const { persistAtom } = recoilPersist();
-export const toDoState = atom({
+export const toDoState = atom<IToDoState>({
   key: 'toDo',
-  default: ['a', 'b', 'c', 'd', 'e', 'f'],
+  default: {
+    to_do: ['a', 'b'],
+    doing: ['c', 'd'],
+    done: ['e', 'f'],
+  },
 });
 export const recoilLocalState = atom({
   key: 'TelloAtom',
   default: {
-    data: ['a', 'b', 'c', 'd', 'e', 'f'],
     isDark: false,
-    // minutes: 'KO',
   },
   effects_UNSTABLE: [persistAtom],
 });
