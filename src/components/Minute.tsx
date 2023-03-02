@@ -1,6 +1,6 @@
 import React from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { hourSelector, minuteState, recoilLocalState } from '../recoil/atoms'
+import { useRecoilState } from 'recoil'
+import { hourSelector, minuteState } from '../recoil/atoms'
 
 
 export default function Minute() {

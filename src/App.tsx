@@ -7,10 +7,12 @@ import { StrictMode } from 'react';
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useRecoilState } from 'recoil';
 import styled, { ThemeProvider } from 'styled-components';
-import Minute from './components/Minute';
+// import Minute from './components/Minute';
 import { recoilLocalState } from './recoil/atoms';
 import GlobalStyle from './styles/GlobalStyle';
 import { darkTheme, ligthTheme } from './theme';
+import { DragDropContext } from 'react-beautiful-dnd';
+import ToDodnd from './components/ToDodnd';
 
 const Toggle = styled.button`
 display:flex;
@@ -25,8 +27,8 @@ padding:0;
 font-size:1.6rem;
 border:none;
 border-radius:50%;
-background-color:${props => props.theme.cardBgColor};
-color:${props => props.theme.accentColor};
+background-color:${props => props.theme.bgColor};
+color:${props => props.theme.cardColor};
 box-shadow: 0 0.2rem 0.5rem rgba(10, 10, 10, 0.1);
 `
 
@@ -37,7 +39,7 @@ function App() {
   }
 
   return (
-    <StrictMode>
+    <>
       <ThemeProvider theme={isDark ? ligthTheme : darkTheme}>
         <GlobalStyle />
         <HelmetProvider>
@@ -47,9 +49,9 @@ function App() {
           </Helmet>
         </HelmetProvider>
         <Toggle onClick={toggleTheme}><FontAwesomeIcon icon={isDark ? faMoon : faLightbulb} /></Toggle>
-        <Minute />
+        <ToDodnd />
       </ThemeProvider>
-    </StrictMode>
+    </>
   );
 }
 
