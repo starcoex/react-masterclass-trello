@@ -27,14 +27,36 @@ export default function ToDodnd() {
   // const objToDos = Object.keys(toDos).map((value) =>
   //   toDos[value])
   // console.log(objToDos)
-  const onDragEnd = ({ draggableId, destination, source }: DropResult) => {
+  const onDragEnd = (info: DropResult) => {
+    console.log(info)
+    const { destination, draggableId
+      , source } = info
     if (!destination) return
-    // setToDos((oldToDos) => {
-    //   const toDosCopy = [...oldToDos]
-    //   toDosCopy.splice(source.index, 1)
-    //   toDosCopy.splice(destination?.index, 0, draggableId)
-    //   return toDosCopy
-    // })
+    if (destination?.droppableId === source.droppableId) {
+      setToDos((allBoards) => {
+        const bordCopy = [...allBoards[source.droppableId]]
+        console.log(bordCopy)
+        bordCopy.splice(source.index, 1)
+        bordCopy.splice(destination.index, 0, draggableId)
+        return {
+          ...allBoards,
+          [source.droppableId]: bordCopy,
+        }
+      })
+    }
+    if (destination.droppableId !== source.droppableId) {
+      setToDos((allBoards) => {
+        const sourceBoard = [...allBoards[source.droppableId]]
+        const destinationBoard = [...allBoards[destination.droppableId]]
+        sourceBoard.splice(source.index, 1)
+        destinationBoard.splice(destination.index, 0, draggableId)
+        return {
+          ...allBoards,
+          [source.droppableId]: sourceBoard,
+          [destination.droppableId]: destinationBoard
+        }
+      })
+    }
   }
   return (
     <DragDropContext onDragEnd={onDragEnd}>

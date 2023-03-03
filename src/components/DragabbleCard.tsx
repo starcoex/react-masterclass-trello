@@ -14,7 +14,7 @@ interface IDragabbleCardProps {
 }
 
 export default React.memo(function DragabbleCard({ todo, index }: IDragabbleCardProps) {
-  console.log("render", todo)
+  // console.log("render", todo)
   return (
     <Draggable draggableId={todo} index={index}>
       {(provided) => (
